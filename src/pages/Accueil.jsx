@@ -5,7 +5,7 @@ import CarteProduit from '../components/CarteProduit.jsx'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 
-const MARQUEE_ITEMS = ['Vérifié experts','Livraison 48h','0 frais dossier','WhatsApp sous 2h','Garantie 30j','0% intérêt','Paiement 2×','Rabat · Salé · Témara']
+const MARQUEE_ITEMS = ['Vérifié experts','Livraison 48h','0 frais dossier','WhatsApp sous 2h','0% intérêt','Paiement 2×','Rabat · Salé · Témara']
 
 const CATEGORIES = [
   { label: 'Mobilier',        emoji: '🛋️',  filtre: 'mobilier' },
@@ -62,7 +62,6 @@ export default function Accueil() {
             {[
               { v: '48h', l: 'Livraison' },
               { v: '0 DH', l: 'Frais' },
-              { v: '30j', l: 'Garantie' },
             ].map(s => (
               <div key={s.l} style={{
                 textAlign: 'center',
