@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Palette KRED ── */
+  --color-cream: oklch(0.975 0.012 85);
+  --color-ink: oklch(0.22 0.018 60);
+  --color-clay: oklch(0.62 0.14 45);
+  --color-forest: oklch(0.32 0.06 155);
+  --color-sand: oklch(0.93 0.02 80);
+  --color-muted-bg: oklch(0.94 0.014 80);
+  --color-border-light: oklch(0.88 0.014 75);
+  --color-card-bg: oklch(0.985 0.008 85);
+
+  --font-family-display: "Fraunces", Georgia, serif;
+  --font-family-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-family-sans);
+    background-color: oklch(0.975 0.012 85);
+    color: oklch(0.22 0.018 60);
+    font-feature-settings: "ss01" on, "cv11" on;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+}
+
+@layer components {
+  /* Typography */
+  .font-display {
+    font-family: var(--font-family-display);
+  }
+
+  /* Container */
+  .container-prose {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .container-prose {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Eyebrow label */
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: oklch(0.22 0.018 60 / 55%);
+  }
+
+  /* Hairline */
+  .hairline {
+    border-top: 1px solid oklch(0.88 0.014 75);
+  }
+
+  /* Pill CTA */
+  .pill-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: oklch(0.22 0.018 60);
+    color: oklch(0.975 0.012 85);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.65rem 1.5rem;
+    border-radius: 9999px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .pill-dark:hover {
+    background: oklch(0.32 0.06 155);
+    transform: translateY(-1px);
+  }
+
+  .pill-clay {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: oklch(0.62 0.14 45);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.65rem 1.5rem;
+    border-radius: 9999px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .pill-clay:hover {
+    background: oklch(0.55 0.16 45);
+    transform: translateY(-1px);
+  }
+
+  /* Card */
+  .kred-card {
+    background: oklch(0.985 0.008 85);
+    border: 1px solid oklch(0.88 0.014 75);
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px oklch(0.22 0.018 60 / 6%), 0 1px 2px oklch(0.22 0.018 60 / 4%);
+  }
+  .kred-card-lift {
+    background: oklch(0.985 0.008 85);
+    border: 1px solid oklch(0.88 0.014 75);
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px oklch(0.22 0.018 60 / 10%), 0 2px 6px oklch(0.22 0.018 60 / 6%);
+  }
+
+  /* Input */
+  .kred-input {
+    width: 100%;
+    border: 1px solid oklch(0.88 0.014 75);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    background: oklch(0.985 0.008 85);
+    color: oklch(0.22 0.018 60);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+  }
+  .kred-input:focus {
+    border-color: oklch(0.22 0.018 60 / 40%);
+    box-shadow: 0 0 0 3px oklch(0.22 0.018 60 / 8%);
+  }
+
+  /* Badge 60/40 */
+  .badge-6040 {
+    display: inline-flex;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: 9999px;
+    overflow: hidden;
+    border: 1px solid oklch(0.88 0.014 75);
+  }
+  .badge-6040 .part-60 {
+    background: oklch(0.22 0.018 60);
+    color: oklch(0.975 0.012 85);
+    padding: 0.15rem 0.4rem;
+  }
+  .badge-6040 .part-40 {
+    background: oklch(0.975 0.012 85);
+    color: oklch(0.22 0.018 60);
+    padding: 0.15rem 0.4rem;
+  }
+
+  /* Dual progress bar */
+  .bar-dual {
+    height: 3px;
+    border-radius: 9999px;
+    overflow: hidden;
+    display: flex;
+    background: oklch(0.88 0.014 75);
+  }
+  .bar-dual .bar-60 {
+    width: 60%;
+    background: oklch(0.62 0.14 45);
+  }
+  .bar-dual .bar-40 {
+    width: 40%;
+    background: oklch(0.22 0.018 60 / 70%);
+  }
+
+  /* Marquee */
+  .marquee-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex;
+    animation: marquee 40s linear infinite;
+  }
+  .marquee-inner:hover {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Fade-up animation */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Grid hairline (filet partagé) */
+  .grid-hairline {
+    display: grid;
+    gap: 1px;
+    background: oklch(0.88 0.014 75);
+  }
+  .grid-hairline > * {
+    background: oklch(0.975 0.012 85);
+  }
+
+  /* Admin */
+  .admin-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .btn-primary {
+    background: oklch(0.62 0.14 45);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.625rem;
+    transition: background 0.15s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary:hover { background: oklch(0.55 0.16 45); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-secondary {
+    background: transparent;
+    color: #374151;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.625rem;
+    border: 1px solid #e5e7eb;
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { background: #f9fafb; }
+  .input {
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.625rem;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    background: #fff;
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .input:focus { border-color: oklch(0.62 0.14 45); box-shadow: 0 0 0 3px oklch(0.62 0.14 45 / 12%); }
+  .label { display: block; font-size: 0.8125rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem; }
+  .card { background: #fff; border-radius: 1rem; border: 1px solid #f0f0f0; padding: 1.5rem; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes ping {
+  0% { transform: scale(1); opacity: 1; }
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── CarteProduit hover button ── */
+.group:hover .cart-btn-wrap {
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+  /* ── CarteProduit v2 ── */
+  .kred-card-v2 {
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.2s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05), 0 0 0 0 rgba(245,158,11,0);
+  }
+  .kred-card-v2:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .kred-card-v2-img {
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .kred-card-v2:hover .kred-card-v2-img {
+    transform: scale(1.06);
+  }
+  .kred-card-v2:hover .kred-cta-btn {
+    background: #f59e0b !important;
+    color: #1a1612 !important;
+  }
+  .kred-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .kred-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.1);
+  }
