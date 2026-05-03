@@ -1,15 +1,28 @@
 import { useState, useMemo } from 'react'
-import { Search, X, ChevronRight, Zap } from 'lucide-react'
+import {
+  Search,
+  X,
+  ChevronRight,
+  Zap,
+  LayoutGrid,
+  Sofa,
+  WashingMachine,
+  Smartphone,
+  Package,
+  Truck,
+  CircleDollarSign,
+  BadgeCheck,
+} from 'lucide-react'
 import { useProduits } from '../hooks/useProduits.js'
 import CarteProduit from '../components/CarteProduit.jsx'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 
 const CATEGORIES = [
-  { value: null,             label: 'Tout', emoji: '🏠' },
-  { value: 'mobilier',       label: 'Mobilier', emoji: '🛋️' },
-  { value: 'electromenager', label: 'Électroménager', emoji: '🧺' },
-  { value: 'electronique',   label: 'Électronique', emoji: '📱' },
+  { value: null,             label: 'Tout',          Icon: LayoutGrid    },
+  { value: 'mobilier',       label: 'Mobilier',       Icon: Sofa          },
+  { value: 'electromenager', label: 'Électroménager', Icon: WashingMachine },
+  { value: 'electronique',   label: 'Électronique',   Icon: Smartphone    },
 ]
 
 const TRIS = [
@@ -91,7 +104,7 @@ export default function Catalogue() {
 
       {/* ── FILTRES STICKY ── */}
       <div style={{ position: 'sticky', top: 64, zIndex: 30, background: 'rgba(250,248,245,0.96)', backdropFilter: 'blur(10px)', borderBottom: '1px solid #ede9e0' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0.6rem 1rem', display: 'flex', gap: '0.4rem', overflowX: 'auto', alignItems: 'center' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0.6rem 1rem', display: 'flex', gap: '0.4rem', overflowX: 'auto', alignItems: 'center', scrollbarWidth: 'none' }}>
           {CATEGORIES.map(cat => {
             const active = categorie === cat.value
             return (
@@ -99,7 +112,7 @@ export default function Catalogue() {
                 key={cat.label}
                 onClick={() => setCategorie(cat.value)}
                 style={{
-                  flexShrink: 0, display: 'flex', alignItems: 'center', gap: 4,
+                  flexShrink: 0, display: 'flex', alignItems: 'center', gap: 5,
                   padding: '0.35rem 0.875rem', borderRadius: 9999,
                   fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap',
                   border: active ? '1.5px solid #1a1612' : '1.5px solid #e0d9ce',
@@ -108,7 +121,8 @@ export default function Catalogue() {
                   transition: 'all 0.15s',
                 }}
               >
-                {cat.emoji} {cat.label}
+                <cat.Icon size={13} strokeWidth={1.8} />
+                {cat.label}
               </button>
             )
           })}
@@ -131,7 +145,7 @@ export default function Catalogue() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">{SQUELETTE}</div>
           ) : filtres.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '4rem 0', color: '#9c8f7a' }}>
-              <p style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>🔍</p>
+              <Search size={40} strokeWidth={1.2} style={{ margin: '0 auto 0.75rem', opacity: 0.35 }} />
               <p style={{ fontWeight: 600, fontSize: '1rem', color: '#1a1612' }}>Aucun produit trouvé</p>
               <button onClick={() => { setRecherche(''); setCategorie(null) }} style={{ marginTop: '1.25rem', padding: '0.6rem 1.5rem', borderRadius: 12, background: '#1a1612', color: '#fff', border: 'none', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>
                 Voir tout
@@ -147,9 +161,17 @@ export default function Catalogue() {
 
       {/* ── Bandeau bas ── */}
       <div style={{ background: '#1a1612', padding: '1rem 1.25rem' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '0.875rem', justifyContent: 'center' }}>
-          {['✅ Produits vérifiés', '⚡ Livraison 48h', '💳 Paiement 2× · 0%', '🚫 0 frais dossier'].map(t => (
-            <span key={t} style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.55)', fontWeight: 500 }}>{t}</span>
+        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '1.25rem', justifyContent: 'center', alignItems: 'center' }}>
+          {[
+            { Icon: BadgeCheck,       label: 'Produits vérifiés' },
+            { Icon: Truck,            label: 'Livraison 48h' },
+            { Icon: CircleDollarSign, label: 'Paiement 2× · 0%' },
+            { Icon: Package,          label: '0 frais dossier' },
+          ].map(({ Icon, label }) => (
+            <span key={label} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.72rem', color: 'rgba(255,255,255,0.55)', fontWeight: 500 }}>
+              <Icon size={13} color="rgba(245,158,11,0.8)" strokeWidth={1.8} />
+              {label}
+            </span>
           ))}
         </div>
       </div>

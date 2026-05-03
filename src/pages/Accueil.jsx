@@ -1,17 +1,39 @@
 import { Link } from 'react-router-dom'
-import { ShieldCheck, Truck, Sparkles, ChevronRight, Zap, MessageCircle } from 'lucide-react'
+import {
+  ShieldCheck,
+  Truck,
+  Sparkles,
+  ChevronRight,
+  Zap,
+  MessageCircle,
+  Sofa,
+  WashingMachine,
+  Smartphone,
+  LayoutGrid,
+  Package,
+  CircleDollarSign,
+  BadgeCheck,
+} from 'lucide-react'
 import { useProduits } from '../hooks/useProduits.js'
 import CarteProduit from '../components/CarteProduit.jsx'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 
-const MARQUEE_ITEMS = ['Vérifié experts','Livraison 48h','0 frais dossier','WhatsApp sous 2h','0% intérêt','Paiement 2×','Rabat · Salé · Témara']
+const MARQUEE_ITEMS = [
+  'Vérifié experts',
+  'Livraison 48h',
+  '0 frais dossier',
+  'WhatsApp sous 2h',
+  '0% intérêt',
+  'Paiement 2×',
+  'Rabat · Salé · Témara',
+]
 
 const CATEGORIES = [
-  { label: 'Mobilier',        emoji: '🛋️',  filtre: 'mobilier' },
-  { label: 'Électroménager',  emoji: '🧺',  filtre: 'electromenager' },
-  { label: 'Électronique',    emoji: '📱',  filtre: 'electronique' },
-  { label: 'Tout voir',       emoji: '→',   filtre: null },
+  { label: 'Mobilier',       Icon: Sofa,          filtre: 'mobilier' },
+  { label: 'Électroménager', Icon: WashingMachine, filtre: 'electromenager' },
+  { label: 'Électronique',   Icon: Smartphone,     filtre: 'electronique' },
+  { label: 'Tout voir',      Icon: LayoutGrid,     filtre: null },
 ]
 
 const SQUELETTE = [...Array(6)].map((_, i) => (
@@ -32,10 +54,10 @@ export default function Accueil() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#faf8f5' }}>
       <Navbar />
 
-      {/* ── HERO COMPACT style marketplace ── */}
+      {/* ── HERO COMPACT ── */}
       <section style={{ background: '#1a1612', padding: '0.75rem 1rem' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-          {/* Message promo principal */}
+          {/* Message promo */}
           <div style={{ flex: 1, minWidth: 220 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <span style={{
@@ -60,8 +82,9 @@ export default function Accueil() {
           {/* Stats mini */}
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             {[
-              { v: '48h', l: 'Livraison' },
-              { v: '0 DH', l: 'Frais' },
+              { Icon: Truck,              v: '48h',  l: 'Livraison' },
+              { Icon: CircleDollarSign,   v: '0 DH', l: 'Frais' },
+              { Icon: BadgeCheck,         v: '100%', l: 'Vérifié' },
             ].map(s => (
               <div key={s.l} style={{
                 textAlign: 'center',
@@ -69,8 +92,9 @@ export default function Accueil() {
                 borderRadius: 8, padding: '5px 10px',
                 minWidth: 52,
               }}>
-                <div style={{ fontFamily: 'var(--font-family-display)', fontWeight: 800, fontSize: '0.85rem', color: '#f59e0b', lineHeight: 1 }}>{s.v}</div>
-                <div style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 2 }}>{s.l}</div>
+                <s.Icon size={12} color="#f59e0b" style={{ margin: '0 auto 2px' }} />
+                <div style={{ fontFamily: 'var(--font-family-display)', fontWeight: 800, fontSize: '0.82rem', color: '#f59e0b', lineHeight: 1 }}>{s.v}</div>
+                <div style={{ fontSize: '0.5rem', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 2 }}>{s.l}</div>
               </div>
             ))}
           </div>
@@ -119,7 +143,8 @@ export default function Accueil() {
               onMouseEnter={e => { e.currentTarget.style.borderColor = '#f59e0b'; e.currentTarget.style.background = '#fffbf0' }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = '#ede9e0'; e.currentTarget.style.background = '#faf8f5' }}
             >
-              <span>{cat.emoji}</span> {cat.label}
+              <cat.Icon size={13} strokeWidth={1.8} />
+              {cat.label}
             </Link>
           ))}
         </div>
@@ -144,7 +169,7 @@ export default function Accueil() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">{SQUELETTE}</div>
           ) : !produits?.length ? (
             <div style={{ textAlign: 'center', padding: '3rem 0', color: '#9c8f7a' }}>
-              <p style={{ fontSize: '2.5rem' }}>📦</p>
+              <Package size={40} strokeWidth={1.2} style={{ margin: '0 auto 0.75rem', opacity: 0.35 }} />
               <p style={{ fontWeight: 600, marginTop: '0.75rem' }}>Aucun produit disponible</p>
             </div>
           ) : (
@@ -167,9 +192,9 @@ export default function Accueil() {
       <section style={{ background: '#f5f2ec', borderTop: '1px solid #ede9e0', borderBottom: '1px solid #ede9e0', padding: '1.5rem 1rem' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
           {[
-            { icon: Sparkles, t: 'Produits vérifiés', d: 'Testés avant publication.' },
-            { icon: ShieldCheck, t: 'Zéro frais cachés', d: '60% livraison, 40% à 30 jours.' },
-            { icon: Truck, t: 'Livraison 48h', d: 'Directement chez vous.' },
+            { icon: Sparkles,         t: 'Produits vérifiés',   d: 'Testés et contrôlés avant publication.' },
+            { icon: CircleDollarSign, t: 'Zéro frais cachés',   d: '60% à la livraison, 40% à 30 jours.' },
+            { icon: Truck,            t: 'Livraison 48h',        d: 'Directement chez vous à Rabat, Salé, Témara.' },
           ].map(p => (
             <div key={p.t} style={{ background: '#fff', borderRadius: 14, padding: '1rem', border: '1px solid #ede9e0', display: 'flex', alignItems: 'center', gap: 12 }}>
               <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'rgba(180,83,9,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
